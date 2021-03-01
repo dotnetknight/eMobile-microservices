@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Common.Bus.CQRS;
 using Common.Bus.RabbitMQ;
+using eMobile.Common.Bus.CQRS;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace eMobile.IoC
@@ -16,6 +17,7 @@ namespace eMobile.IoC
             });
 
             services.AddTransient<ICommandBusAsync, CommandBusAsync>();
+            services.AddTransient<IQueryBusAsync, QueryBusAsync>();
         }
     }
 }
