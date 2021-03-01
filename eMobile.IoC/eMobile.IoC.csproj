@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\eMobile.Common.csproj" />
+    <ProjectReference Include="..\eMobile.Common\eMobile.Common.csproj" />
   </ItemGroup>
 
 </Project>
