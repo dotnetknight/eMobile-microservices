@@ -5,11 +5,15 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IoC", "IoC", "{4E04F3BB-3D37-41F2-A331-06962D309A5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eMobile.IoC", "eMobile.IoC\eMobile.IoC.csproj", "{7384604B-F7FD-4EC3-B8EA-062217252141}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eMobile.IoC", "eMobile.IoC\eMobile.IoC.csproj", "{7384604B-F7FD-4EC3-B8EA-062217252141}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{AC83C9D6-4B14-4BA6-8891-57B9A93DE8EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eMobile.Common", "eMobile.Common\eMobile.Common.csproj", "{C5DD50E5-2EF5-402A-918D-812A58836895}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eMobile.Common", "eMobile.Common\eMobile.Common.csproj", "{C5DD50E5-2EF5-402A-918D-812A58836895}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{215B978F-142B-4F78-9EFC-DBABDAB78F49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eMobile.Store.API", "eMobile.Store.API\eMobile.Store.API.csproj", "{28CB9804-1290-48BF-B395-84BF46724C89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{C5DD50E5-2EF5-402A-918D-812A58836895}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5DD50E5-2EF5-402A-918D-812A58836895}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5DD50E5-2EF5-402A-918D-812A58836895}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28CB9804-1290-48BF-B395-84BF46724C89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28CB9804-1290-48BF-B395-84BF46724C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28CB9804-1290-48BF-B395-84BF46724C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28CB9804-1290-48BF-B395-84BF46724C89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7384604B-F7FD-4EC3-B8EA-062217252141} = {4E04F3BB-3D37-41F2-A331-06962D309A5F}
 		{C5DD50E5-2EF5-402A-918D-812A58836895} = {AC83C9D6-4B14-4BA6-8891-57B9A93DE8EA}
+		{28CB9804-1290-48BF-B395-84BF46724C89} = {215B978F-142B-4F78-9EFC-DBABDAB78F49}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E81A4596-CF7F-45E8-89A8-5BFD05CC9838}
