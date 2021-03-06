@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Handlers\QueryHandlers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eMobile.Common\eMobile.Common.csproj" />
+    <ProjectReference Include="..\eMobile.Phones.Domain\eMobile.Phones.Domain.csproj" />
+    <ProjectReference Include="..\eMobile.Phones.Models\eMobile.Phones.Models.csproj" />
+    <ProjectReference Include="..\eMobile.Phones.Repository\eMobile.Phones.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
