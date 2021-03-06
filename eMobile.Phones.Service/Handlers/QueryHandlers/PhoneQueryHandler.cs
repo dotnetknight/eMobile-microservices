@@ -1,17 +1,18 @@
 ﻿using AutoMapper;
-using Common.Bus.CQRS;
+using eMobile.Common.Bus.CQRS;
 using eMobile.Phones.Domain.PhonesEntity;
-using eMobile.Phones.Models.Commands;
 using eMobile.Phones.Models.Exceptions;
+using eMobile.Phones.Models.Models;
+using eMobile.Phones.Models.Queries;
 using eMobile.Phones.Models.Responses;
 using eMobile.Phones.Repository;
 using eMobile.Phones.Service.Helpers;
 using System;
 using System.Threading.Tasks;
 
-namespace eMobile.Phones.Service.Handlers.CommandHandlers
+namespace eMobile.Phones.Service.Handlers.QueryHandlers
 {
-    public class CreatePhoneCommandHandler : ICommandHandlerAsync<CreatePhoneCommand, CreatePhoneCommandResponse>
+    public class PhoneQueryHandler : IQueryHandlerAsync<PhoneQuery, PhoneQueryResponse>
     {
         #region Properties
         private readonly IRepository<Phone> phoneRepository;
@@ -22,7 +23,7 @@ namespace eMobile.Phones.Service.Handlers.CommandHandlers
         #endregion
 
         #region Constructor
-        public CreatePhoneCommandHandler(
+        public PhoneQueryHandler(
             IRepository<Phone> phoneRepository,
             HATEOASLinksService hateoasLinksService,
             MediaTypeCheckService mediaTypeCheckService,
@@ -36,34 +37,35 @@ namespace eMobile.Phones.Service.Handlers.CommandHandlers
 
         #endregion
 
-        public Task<CreatePhoneCommandResponse> HandleAsync(CreatePhoneCommand command)
+        public Task<PhoneQueryResponse> HandleAsync(PhoneQuery query)
         {
+            PhoneDto mappedPhone;
+
             try
             {
-                Guid phoneId = Guid.NewGuid();
+                var phone = phoneRepository.Get(query.PhoneId);
 
-                var mappedPhone = mapper.Map<Phone>(command);
+                if (phone == null)
+                    throw new PhoneNotFound("Phone with requested id not found");
 
-                mappedPhone.Id = phoneId;
-                mappedPhone.AddedDate = DateTime.Now;
+                mappedPhone = mapper.Map<PhoneDto>(phone);
+            }
 
-                mappedPhone.Dimensions.Id = Guid.NewGuid();
-                mappedPhone.Display.Id = Guid.NewGuid();
-                mappedPhone.Media.ForEach(media => media.Id = Guid.NewGuid());
-
-                phoneRepository.Insert(mappedPhone);
-
-                return Task.FromResult(new CreatePhoneCommandResponse()
-                {
-                    Id = phoneId,
-                    Links = mediaTypeCheckService.CanCreateHATEOASLink() ? hateoasLinksService.CreateLinksForPhones(phoneId) : null
-                });
+            catch (PhoneNotFound)
+            {
+                throw;
             }
 
             catch (Exception ex)
             {
                 throw new BaseApiException(System.Net.HttpStatusCode.InternalServerError, ex.ToString());
             }
+
+            return Task.FromResult(new PhoneQueryResponse()
+            {
+                Phone = mappedPhone,
+                Links = mediaTypeCheckService.CanCreateHATEOASLink() ? hateoasLinksService.CreateLinksForPhones(mappedPhone.Id) : null
+            });
         }
     }
 }

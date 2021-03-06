@@ -6,11 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.1.0" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\eMobile.Common\eMobile.Common.csproj" />
+    <ProjectReference Include="..\eMobile.Phones.Service\eMobile.Phones.Service.csproj" />
   </ItemGroup>
 
 </Project>

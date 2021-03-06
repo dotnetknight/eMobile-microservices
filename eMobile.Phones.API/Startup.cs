@@ -17,6 +17,8 @@ using System.Reflection;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using eMobile.Phones.Repository;
+using eMobile.Phones.Service.Helpers;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace eMobile.Phones.API
 {
@@ -32,10 +34,11 @@ namespace eMobile.Phones.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCaching();
+
             services.AddControllers(options =>
             {
                 options.ReturnHttpNotAcceptable = true;
-                options.RespectBrowserAcceptHeader = true;
 
                 options.Filters.Add<ValidationFilter>();
                 options.Filters.Add<ApiExceptionAttribute>();
@@ -62,7 +65,7 @@ namespace eMobile.Phones.API
             })
                 .AddSwaggerExamplesFromAssemblyOf<Startup>();
 
-
+            services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<PhonesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             var container = new ContainerBuilder();

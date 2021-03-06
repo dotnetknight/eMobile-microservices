@@ -16,8 +16,8 @@ namespace eMobile.Phones.API.Filters
 
             if (baseException is BaseApiException baseApiException)
             {
-                statusCode = (int)baseApiException.ResponseHttpStatusCode;
-                message = baseApiException.BackEndMessage;
+                statusCode = (int)baseApiException.HttpStatusCode;
+                message = baseApiException.Message;
             }
 
             context.HttpContext.Response.StatusCode = statusCode;

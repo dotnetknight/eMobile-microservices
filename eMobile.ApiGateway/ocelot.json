@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/phones",
+      "DownstreamPathTemplate": "/api/phones/CreatePhone",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -9,7 +9,7 @@
           "Port": 5002
         }
       ],
-      "UpstreamPathTemplate": "/api/phones",
+      "UpstreamPathTemplate": "/api/phones/CreatePhone",
       "UpstreamHttpMethod": [ "GET", "POST" ]
     }
 
