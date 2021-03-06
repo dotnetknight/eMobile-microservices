@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/mobile",
+      "DownstreamPathTemplate": "/api/mobiles",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -9,7 +9,20 @@
           "Port": 5002
         }
       ],
-      "UpstreamPathTemplate": "/api/mobile",
+      "UpstreamPathTemplate": "/api/mobiles",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/orders",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "UpstreamPathTemplate": "/api/orders",
       "UpstreamHttpMethod": [ "GET", "POST" ]
     }
   ]

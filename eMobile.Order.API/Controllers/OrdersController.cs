@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMobile.Mobile.API.Controllers
+namespace eMobile.Order.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class MobileController : ControllerBase
+    public class OrdersController : ControllerBase
     {
-        private readonly ILogger<MobileController> _logger;
+        private readonly ILogger<OrdersController> _logger;
 
-        public MobileController(ILogger<MobileController> logger)
+        public OrdersController(ILogger<OrdersController> logger)
         {
             _logger = logger;
         }
@@ -21,13 +21,7 @@ namespace eMobile.Mobile.API.Controllers
         [HttpGet]
         public ActionResult<string> Get()
         {
-            return Ok("Galaxy Note 3");
-        }
-
-        [HttpPost]
-        public ActionResult Post()
-        {
-            return Ok();
+            return Ok("Simple order");
         }
     }
 }
