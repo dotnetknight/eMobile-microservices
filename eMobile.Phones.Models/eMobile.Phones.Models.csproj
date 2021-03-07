@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\eMobile.Common\eMobile.Common.csproj" />
+    <ProjectReference Include="..\eMobile.Phones.Domain\eMobile.Phones.Domain.csproj" />
   </ItemGroup>
 
 </Project>

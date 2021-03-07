@@ -40,6 +40,20 @@ namespace eMobile.Phones.API.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Returns all phones
+        /// </summary>
+        /// <param name="query"></param>
+        /// <response code="200">Phones</response>
+        [HttpGet(Name = "Phones")]
+        [ResponseCache(Duration = 10)]
+        [ProducesResponseType(typeof(PhonesQueryResponse), 200)]
+        public async Task<ActionResult<PhonesQueryResponse>> Phones([FromQuery] PhonesQuery query)
+        {
+            var result = await queryBus.ExecuteAsync<PhonesQuery, PhonesQueryResponse>(query);
+            return Ok(result);
+        }
+
         #endregion
 
         #region POST
