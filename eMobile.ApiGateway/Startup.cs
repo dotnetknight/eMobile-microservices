@@ -1,14 +1,14 @@
+using eMobile.Common.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace eMobile.ApiGateway
 {
@@ -19,6 +19,15 @@ namespace eMobile.ApiGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOcelot();
+
+            services.AddHealthChecks()
+               .AddCheck<StartupHostedServiceHealthCheck>(
+               "StartupHostedServiceHealthCheck",
+               failureStatus: HealthStatus.Degraded,
+               tags: new[] { "liveness" });
+
+            services.AddHostedService<StartupHostedService>();
+            services.AddSingleton<StartupHostedServiceHealthCheck>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -28,6 +37,20 @@ namespace eMobile.ApiGateway
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseHealthChecks("/health/liveness", new HealthCheckOptions()
+            {
+                Predicate = (check) => check.Tags.Contains("liveness"),
+
+                ResponseWriter = async (context, report) =>
+                {
+                    context.Response.ContentType = "application/json";
+
+                    await context.Response.WriteAsync(
+                       JsonConvert.SerializeObject(
+                           CreateHealthCheckResponse.Create(report)));
+                }
+            });
 
             app.UseRouting();
 

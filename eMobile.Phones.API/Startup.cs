@@ -17,8 +17,10 @@ using System.Reflection;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using eMobile.Phones.Repository;
-using eMobile.Phones.Service.Helpers;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Http;
+using eMobile.Common.Services;
 
 namespace eMobile.Phones.API
 {
@@ -66,7 +68,22 @@ namespace eMobile.Phones.API
                 .AddSwaggerExamplesFromAssemblyOf<Startup>();
 
             services.AddAutoMapper(typeof(Startup));
-            services.AddDbContext<PhonesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<PhonesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")))
+                .AddHealthChecks()
+                .AddDbContextCheck<PhonesContext>(
+                name: "PhonesContext",
+                failureStatus: HealthStatus.Degraded,
+                tags: new[] { "readiness" });
+
+            services.AddHealthChecks()
+                .AddCheck<StartupHostedServiceHealthCheck>(
+                "StartupHostedServiceHealthCheck",
+                failureStatus: HealthStatus.Degraded,
+                tags: new[] { "liveness" });
+
+            services.AddHostedService<StartupHostedService>();
+            services.AddSingleton<StartupHostedServiceHealthCheck>();
 
             var container = new ContainerBuilder();
             IoCService.RegisterServices(container, services);
@@ -84,6 +101,34 @@ namespace eMobile.Phones.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "eMobile.Phones.API v1"));
             }
+
+            app.UseHealthChecks("/health/readiness", new HealthCheckOptions()
+            {
+                Predicate = (check) => check.Tags.Contains("readiness"),
+
+                ResponseWriter = async (context, report) =>
+                {
+                    context.Response.ContentType = "application/json";
+
+                    await context.Response.WriteAsync(
+                      JsonConvert.SerializeObject(
+                          CreateHealthCheckResponse.Create(report)));
+                }
+            });
+
+            app.UseHealthChecks("/health/liveness", new HealthCheckOptions()
+            {
+                Predicate = (check) => check.Tags.Contains("liveness"),
+
+                ResponseWriter = async (context, report) =>
+                {
+                    context.Response.ContentType = "application/json";
+
+                    await context.Response.WriteAsync(
+                       JsonConvert.SerializeObject(
+                           CreateHealthCheckResponse.Create(report)));
+                }
+            });
 
             app.UseHttpsRedirection();
 

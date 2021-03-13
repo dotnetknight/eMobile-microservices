@@ -8,4 +8,8 @@
     <PackageReference Include="Ocelot" Version="17.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\eMobile.Common\eMobile.Common.csproj" />
+  </ItemGroup>
+
 </Project>
