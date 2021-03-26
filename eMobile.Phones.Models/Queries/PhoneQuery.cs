@@ -5,11 +5,11 @@ namespace eMobile.Phones.Models.Queries
 {
     public class PhoneQuery : IQuery
     {
-        public Guid PhoneId { get; set; }
+        public Guid Id { get; set; }
 
-        public PhoneQuery(Guid phoneId)
+        public PhoneQuery(Guid Id)
         {
-            PhoneId = phoneId;
+            this.Id = Id;
         }
     }
 }

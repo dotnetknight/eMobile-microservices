@@ -12,6 +12,8 @@ namespace eMobile.Phones.API.Mapping
         public CommandToEntityMapperProfile()
         {
             CreateMap<CreatePhoneCommand, Phone>();
+            CreateMap<Phone, UpdatePhoneCommand>();
+            CreateMap<UpdatePhoneCommand, Phone>();
 
             CreateMap<PhoneMedia, Media>();
             CreateMap<PhoneDisplay, Display>();

@@ -30,7 +30,7 @@ namespace eMobile.Phones.API.Controllers
                 "GET"
                 ),
 
-                new LinkModel(Url.Link("Phone", new { phoneId = new Guid() }),
+                new LinkModel(Url.Link("Phone", new { id = Guid.Empty }),
                 "get_phone",
                 "GET"
                 ),
@@ -38,6 +38,11 @@ namespace eMobile.Phones.API.Controllers
                 new LinkModel(Url.Link("CreatePhone", new { }),
                 "create_phone",
                 "POST"
+                ),
+
+                new LinkModel(Url.Link("UpdatePhone", new { id = Guid.Empty }),
+                "update_phone",
+                "PATCH"
                 ),
 
                 new LinkModel(Url.Link("Options", new { }),

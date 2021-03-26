@@ -43,7 +43,7 @@ namespace eMobile.Phones.Service.Handlers.QueryHandlers
 
             try
             {
-                var phone = phoneRepository.Get(query.PhoneId);
+                var phone = phoneRepository.Get(query.Id);
 
                 if (phone == null)
                     throw new PhoneNotFound("Phone with requested id not found");

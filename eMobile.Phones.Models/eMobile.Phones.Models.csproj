@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="5.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\eMobile.Common\eMobile.Common.csproj" />
     <ProjectReference Include="..\eMobile.Phones.Domain\eMobile.Phones.Domain.csproj" />
   </ItemGroup>

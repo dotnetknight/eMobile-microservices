@@ -5,6 +5,7 @@ using eMobile.Phones.Models.Models;
 using eMobile.Phones.Models.Queries;
 using eMobile.Phones.Models.Responses;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -28,15 +29,15 @@ namespace eMobile.Phones.API.Controllers
         /// <summary>
         /// Returns phone with specific id
         /// </summary>
-        /// <param name="phoneId"></param>
+        /// <param name="id"></param>
         /// <response code="200">Phone with id</response>
         /// <response code="404">Phone not found</response>
-        [HttpGet("{phoneId}", Name = "Phone")]
+        [HttpGet("{id}", Name = "Phone")]
         [ProducesResponseType(typeof(PhoneQueryResponse), 200)]
         [ProducesResponseType(typeof(ErrorModel), 404)]
-        public async Task<ActionResult<PhoneQueryResponse>> Phone([FromRoute] Guid phoneId)
+        public async Task<ActionResult<PhoneQueryResponse>> Phone([FromRoute] Guid id)
         {
-            var result = await queryBus.ExecuteAsync<PhoneQuery, PhoneQueryResponse>(new PhoneQuery(phoneId));
+            var result = await queryBus.ExecuteAsync<PhoneQuery, PhoneQueryResponse>(new PhoneQuery(id));
             return Ok(result);
         }
 
@@ -46,7 +47,7 @@ namespace eMobile.Phones.API.Controllers
         /// <param name="query"></param>
         /// <response code="200">Phones</response>
         [HttpGet(Name = "Phones")]
-        [ResponseCache(Duration = 10)]
+        [ResponseCache(Duration = 3)]
         [ProducesResponseType(typeof(PhonesQueryResponse), 200)]
         public async Task<ActionResult<PhonesQueryResponse>> Phones([FromQuery] PhonesQuery query)
         {
@@ -73,8 +74,29 @@ namespace eMobile.Phones.API.Controllers
 
             return CreatedAtAction("Phone", new
             {
-                phoneId = result.Id
+                id = result.Id
             }, result);
+        }
+
+        #endregion
+
+        #region Patch
+
+        /// <summary>
+        /// Updates phone entity in the system
+        /// </summary>
+        /// <param name="patchDocument"></param>
+        /// <param name="id"></param>
+        /// <response code="204">Updates phone entity in the system</response>
+        [HttpPatch("{id}", Name = "UpdatePhone")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<ActionResult<UpdatePhoneCommand>> UpdatePhone([FromBody] JsonPatchDocument<UpdatePhoneCommand> patchDocument, [FromRoute] Guid id)
+        {
+            await commandBus.ExecuteAsync(
+                new UpdatePhoneCommand(
+                    patchDocument, id));
+
+            return NoContent();
         }
 
         #endregion
@@ -88,7 +110,7 @@ namespace eMobile.Phones.API.Controllers
         [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult AuthorsControllerOptions()
         {
-            Response.Headers.Add("Allow", "GET,POST,OPTIONS");
+            Response.Headers.Add("Allow", "GET,POST,PATCH,OPTIONS");
 
             return Ok();
         }

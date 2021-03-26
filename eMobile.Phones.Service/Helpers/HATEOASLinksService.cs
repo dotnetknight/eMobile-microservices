@@ -27,7 +27,7 @@ namespace eMobile.Phones.Service.Helpers
 
         #endregion
 
-        public IEnumerable<LinkModel> CreateLinksForPhones(Guid phoneId)
+        public IEnumerable<LinkModel> CreateLinksForPhones(Guid id)
         {
             var urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
 
@@ -38,7 +38,7 @@ namespace eMobile.Phones.Service.Helpers
                 "GET"
                 ),
 
-                new LinkModel(urlHelper.Link("Phone", new { phoneId = phoneId }),
+                new LinkModel(urlHelper.Link("Phone", new { id }),
                 "get_phone",
                 "GET"
                 ),
@@ -46,6 +46,11 @@ namespace eMobile.Phones.Service.Helpers
                 new LinkModel(urlHelper.Link("CreatePhone", new { }),
                 "create_phone",
                 "POST"
+                ),
+
+                new LinkModel(urlHelper.Link("UpdatePhone", new { }),
+                "create_phone",
+                "PATCH"
                 ),
             };
 

@@ -23,16 +23,22 @@ namespace eMobile.IoC
             });
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
             services.AddSingleton(typeof(HATEOASLinksService), typeof(HATEOASLinksService));
             services.AddSingleton(typeof(MediaTypeCheckService), typeof(MediaTypeCheckService));
+
             services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddTransient<ICommandBusAsync, CommandBusAsync>();
             services.AddTransient<IQueryBusAsync, QueryBusAsync>();
 
             builder.RegisterAssemblyTypes(typeof(CreatePhoneCommandHandler).Assembly)
-               .AsClosedTypesOf(typeof(ICommandHandlerAsync<,>))
-               .EnableClassInterceptors();
+                .AsClosedTypesOf(typeof(ICommandHandlerAsync<,>))
+                .EnableClassInterceptors();
+
+            builder.RegisterAssemblyTypes(typeof(UpdatePhoneCommandHandler).Assembly)
+                .AsClosedTypesOf(typeof(ICommandHandlerAsync<>))
+                .EnableClassInterceptors();
 
             builder.RegisterAssemblyTypes(typeof(PhoneQueryHandler).Assembly)
                 .AsClosedTypesOf(typeof(IQueryHandlerAsync<,>))
