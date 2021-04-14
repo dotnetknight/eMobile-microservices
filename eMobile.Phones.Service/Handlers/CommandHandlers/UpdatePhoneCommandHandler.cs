@@ -40,15 +40,19 @@ namespace eMobile.Phones.Service.Handlers.CommandHandlers
 
                 var phoneToPatch = mapper.Map<UpdatePhoneCommand>(command);
 
-                command.JsonPatchDocument.ApplyTo(phoneToPatch);
+                command.PatchDocument().ApplyTo(phoneToPatch);
 
                 mapper.Map(phoneToPatch, phone);
 
                 phoneRepository.Update(phone);
                 phoneRepository.SaveChanges();
 
-
                 return Task.CompletedTask;
+            }
+
+            catch (PhoneNotFound)
+            {
+                throw;
             }
 
             catch (Exception)
