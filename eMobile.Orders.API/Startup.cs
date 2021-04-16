@@ -1,16 +1,22 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using eMobile.IoC;
+using eMobile.Orders.API.Filters;
+using eMobile.Orders.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
+using Newtonsoft.Json;
+using FluentValidation.AspNetCore;
 
 namespace eMobile.Orders.API
 {
@@ -24,14 +30,48 @@ namespace eMobile.Orders.API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCaching();
 
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.ReturnHttpNotAcceptable = true;
+
+                options.Filters.Add<ValidationFilter>();
+                options.Filters.Add<ApiExceptionAttribute>();
+                options.Filters.Add(new ProducesAttribute("application/json", "application/xml", "application/vnd.marvin.hateoas+json"));
+                options.Filters.Add(new ConsumesAttribute("application/json", "application/xml"));
+            })
+              .AddNewtonsoftJson(options =>
+              {
+                  options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                  options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+              })
+              .AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>())
+              .AddXmlDataContractSerializerFormatters();
+
             services.AddSwaggerGen(c =>
             {
+                c.ExampleFilters();
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "eMobile.Orders.API", Version = "v1" });
-            });
+            })
+                .AddSwaggerExamplesFromAssemblyOf<Startup>();
+
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddDbContext<OrdersContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            var container = new ContainerBuilder();
+            IoCService.RegisterServices(container, services);
+            container.Populate(services);
+
+            return new AutofacServiceProvider(container.Build());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
