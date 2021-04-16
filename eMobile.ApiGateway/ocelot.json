@@ -10,7 +10,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/phones",
-      "UpstreamHttpMethod": [ "GET", "POST" ]
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "Options"
+      ]
     }
   ]
 }

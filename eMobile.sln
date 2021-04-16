@@ -19,15 +19,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eMobile.ApiGateway", "eMobi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Phones", "Phones", "{DE664B28-FCBA-4A94-A250-754A0E465319}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eMobile.Phones.API", "eMobile.Phones.API\eMobile.Phones.API.csproj", "{4A795A16-42AC-4697-8ED9-D04F598EBBF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eMobile.Phones.API", "eMobile.Phones.API\eMobile.Phones.API.csproj", "{4A795A16-42AC-4697-8ED9-D04F598EBBF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eMobile.Phones.Domain", "eMobile.Phones.Domain\eMobile.Phones.Domain.csproj", "{2850B865-F057-42E8-A878-E1F21513D686}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eMobile.Phones.Domain", "eMobile.Phones.Domain\eMobile.Phones.Domain.csproj", "{2850B865-F057-42E8-A878-E1F21513D686}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eMobile.Phones.Repository", "eMobile.Phones.Repository\eMobile.Phones.Repository.csproj", "{1600B1F9-66A0-4AAA-BCB1-E9A19AB194D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eMobile.Phones.Repository", "eMobile.Phones.Repository\eMobile.Phones.Repository.csproj", "{1600B1F9-66A0-4AAA-BCB1-E9A19AB194D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eMobile.Phones.Models", "eMobile.Phones.Models\eMobile.Phones.Models.csproj", "{ABD675AF-0642-4E94-B36B-F771745E1197}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eMobile.Phones.Models", "eMobile.Phones.Models\eMobile.Phones.Models.csproj", "{ABD675AF-0642-4E94-B36B-F771745E1197}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eMobile.Phones.Service", "eMobile.Phones.Service\eMobile.Phones.Service.csproj", "{D9AF78F3-2FF8-41BB-8968-75D51E1231E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eMobile.Phones.Service", "eMobile.Phones.Service\eMobile.Phones.Service.csproj", "{D9AF78F3-2FF8-41BB-8968-75D51E1231E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orders", "Orders", "{E8B548C5-534F-466E-B5CB-F74B029C33E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eMobile.Orders.API", "eMobile.Orders.API\eMobile.Orders.API.csproj", "{642EAC86-8A19-46B7-818F-CDB8A7778ABD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eMobile.Orders.Domain", "eMobile.Orders.Domain\eMobile.Orders.Domain.csproj", "{FB4FB166-0534-4FE7-A4F3-4D7E6A63393F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eMobile.Orders.Models", "eMobile.Orders.Models\eMobile.Orders.Models.csproj", "{046BF4BF-6AE3-4E84-8301-FDB22B8E5DF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eMobile.Orders.Repository", "eMobile.Orders.Repository\eMobile.Orders.Repository.csproj", "{368E6E84-04E3-4763-B6E4-5F925B174022}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eMobile.Orders.Service", "eMobile.Orders.Service\eMobile.Orders.Service.csproj", "{0BEB85A8-04DF-4FFA-80DF-93FEB06BDB48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +79,26 @@ Global
 		{D9AF78F3-2FF8-41BB-8968-75D51E1231E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9AF78F3-2FF8-41BB-8968-75D51E1231E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9AF78F3-2FF8-41BB-8968-75D51E1231E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{642EAC86-8A19-46B7-818F-CDB8A7778ABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{642EAC86-8A19-46B7-818F-CDB8A7778ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{642EAC86-8A19-46B7-818F-CDB8A7778ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{642EAC86-8A19-46B7-818F-CDB8A7778ABD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB4FB166-0534-4FE7-A4F3-4D7E6A63393F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB4FB166-0534-4FE7-A4F3-4D7E6A63393F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB4FB166-0534-4FE7-A4F3-4D7E6A63393F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB4FB166-0534-4FE7-A4F3-4D7E6A63393F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{046BF4BF-6AE3-4E84-8301-FDB22B8E5DF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{046BF4BF-6AE3-4E84-8301-FDB22B8E5DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{046BF4BF-6AE3-4E84-8301-FDB22B8E5DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{046BF4BF-6AE3-4E84-8301-FDB22B8E5DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{368E6E84-04E3-4763-B6E4-5F925B174022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{368E6E84-04E3-4763-B6E4-5F925B174022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{368E6E84-04E3-4763-B6E4-5F925B174022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{368E6E84-04E3-4763-B6E4-5F925B174022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BEB85A8-04DF-4FFA-80DF-93FEB06BDB48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BEB85A8-04DF-4FFA-80DF-93FEB06BDB48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BEB85A8-04DF-4FFA-80DF-93FEB06BDB48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BEB85A8-04DF-4FFA-80DF-93FEB06BDB48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +113,12 @@ Global
 		{1600B1F9-66A0-4AAA-BCB1-E9A19AB194D3} = {DE664B28-FCBA-4A94-A250-754A0E465319}
 		{ABD675AF-0642-4E94-B36B-F771745E1197} = {DE664B28-FCBA-4A94-A250-754A0E465319}
 		{D9AF78F3-2FF8-41BB-8968-75D51E1231E9} = {DE664B28-FCBA-4A94-A250-754A0E465319}
+		{E8B548C5-534F-466E-B5CB-F74B029C33E0} = {215B978F-142B-4F78-9EFC-DBABDAB78F49}
+		{642EAC86-8A19-46B7-818F-CDB8A7778ABD} = {E8B548C5-534F-466E-B5CB-F74B029C33E0}
+		{FB4FB166-0534-4FE7-A4F3-4D7E6A63393F} = {E8B548C5-534F-466E-B5CB-F74B029C33E0}
+		{046BF4BF-6AE3-4E84-8301-FDB22B8E5DF6} = {E8B548C5-534F-466E-B5CB-F74B029C33E0}
+		{368E6E84-04E3-4763-B6E4-5F925B174022} = {E8B548C5-534F-466E-B5CB-F74B029C33E0}
+		{0BEB85A8-04DF-4FFA-80DF-93FEB06BDB48} = {E8B548C5-534F-466E-B5CB-F74B029C33E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E81A4596-CF7F-45E8-89A8-5BFD05CC9838}
