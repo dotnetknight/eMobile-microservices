@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Common.Bus.CQRS;
+using Common.Bus.RabbitMQ;
 using eMobile.Phones.Domain.PhonesEntity;
 using eMobile.Phones.Models.Commands;
+using eMobile.Phones.Models.Events;
 using eMobile.Phones.Models.Exceptions;
 using eMobile.Phones.Models.Responses;
 using eMobile.Phones.Repository;
@@ -18,6 +20,7 @@ namespace eMobile.Phones.Service.Handlers.CommandHandlers
         private readonly HATEOASLinksService hateoasLinksService;
         private readonly MediaTypeCheckService mediaTypeCheckService;
         private readonly IMapper mapper;
+        private readonly IEventBus eventBus;
 
         #endregion
 
@@ -26,12 +29,14 @@ namespace eMobile.Phones.Service.Handlers.CommandHandlers
             IRepository<Phone> phoneRepository,
             HATEOASLinksService hateoasLinksService,
             MediaTypeCheckService mediaTypeCheckService,
-            IMapper mapper)
+            IMapper mapper,
+            IEventBus eventBus)
         {
             this.phoneRepository = phoneRepository;
             this.hateoasLinksService = hateoasLinksService;
             this.mediaTypeCheckService = mediaTypeCheckService;
             this.mapper = mapper;
+            this.eventBus = eventBus;
         }
 
         #endregion
@@ -53,6 +58,20 @@ namespace eMobile.Phones.Service.Handlers.CommandHandlers
 
                 phoneRepository.Insert(mappedPhone);
 
+                eventBus.Publish(new PhoneCreatedEvent(
+                    command.Name,
+                    command.Manufacturer,
+                    command.Dimensions,
+                    command.Weight,
+                    command.Display,
+                    command.CPUModel,
+                    command.RAM,
+                    command.OS,
+                    command.Price,
+                    command.Media));
+
+                phoneRepository.CommitTransaction();
+
                 return Task.FromResult(new CreatePhoneCommandResponse()
                 {
                     Id = phoneId,
@@ -62,6 +81,7 @@ namespace eMobile.Phones.Service.Handlers.CommandHandlers
 
             catch (Exception ex)
             {
+                phoneRepository.RollbackTransaction();
                 throw new BaseApiException(System.Net.HttpStatusCode.InternalServerError, ex.ToString());
             }
         }

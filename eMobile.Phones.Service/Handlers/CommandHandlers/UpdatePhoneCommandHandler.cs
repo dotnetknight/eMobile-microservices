@@ -28,7 +28,6 @@ namespace eMobile.Phones.Service.Handlers.CommandHandlers
 
         #endregion
 
-
         public Task HandleAsync(UpdatePhoneCommand command)
         {
             try
@@ -45,18 +44,20 @@ namespace eMobile.Phones.Service.Handlers.CommandHandlers
                 mapper.Map(phoneToPatch, phone);
 
                 phoneRepository.Update(phone);
-                phoneRepository.SaveChanges();
+                phoneRepository.CommitTransaction();
 
                 return Task.CompletedTask;
             }
 
             catch (PhoneNotFound)
             {
+                phoneRepository.RollbackTransaction();
                 throw;
             }
 
             catch (Exception)
             {
+                phoneRepository.RollbackTransaction();
                 throw;
             }
         }

@@ -4,6 +4,7 @@ using eMobile.Phones.Domain.DisplayEntity;
 using eMobile.Phones.Domain.MediaEntity;
 using eMobile.Phones.Domain.PhonesEntity;
 using eMobile.Phones.Models.Commands;
+using eMobile.Phones.Models.Dtos;
 
 namespace eMobile.Phones.API.Mapping
 {

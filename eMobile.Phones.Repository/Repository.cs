@@ -15,6 +15,7 @@ namespace eMobile.Phones.Repository
         {
             this.phonesContext = phonesContext;
             entities = phonesContext.Set<T>();
+            this.phonesContext.Database.BeginTransactionAsync();
         }
 
         public List<T> GetAll()
@@ -35,7 +36,7 @@ namespace eMobile.Phones.Repository
             }
 
             entities.Add(entity);
-            phonesContext.SaveChanges();
+            SaveChanges();
         }
 
         public void Update(T entity)
@@ -45,7 +46,7 @@ namespace eMobile.Phones.Repository
                 throw new ArgumentNullException("entity");
             }
 
-            phonesContext.SaveChanges();
+            SaveChanges();
         }
 
         public void Delete(T entity)
@@ -56,7 +57,17 @@ namespace eMobile.Phones.Repository
             }
 
             entities.Remove(entity);
-            phonesContext.SaveChanges();
+            SaveChanges();
+        }
+
+        public void RollbackTransaction()
+        {
+            phonesContext.Database.RollbackTransactionAsync();
+        }
+
+        public void CommitTransaction()
+        {
+            phonesContext.Database.CommitTransactionAsync();
         }
 
         public void SaveChanges()
