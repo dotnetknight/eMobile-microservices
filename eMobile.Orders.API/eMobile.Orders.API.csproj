@@ -32,6 +32,7 @@
     <ProjectReference Include="..\eMobile.IoC\eMobile.IoC.csproj" />
     <ProjectReference Include="..\eMobile.Orders.Models\eMobile.Orders.Models.csproj" />
     <ProjectReference Include="..\eMobile.Orders.Repository\eMobile.Orders.Repository.csproj" />
+    <ProjectReference Include="..\eMobile.Orders.Service\eMobile.Orders.Service.csproj" />
   </ItemGroup>
 
 </Project>

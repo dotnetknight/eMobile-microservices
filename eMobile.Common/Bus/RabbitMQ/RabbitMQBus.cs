@@ -88,7 +88,6 @@ namespace Common.Bus.RabbitMQ
             consumer.Received += ConsumerReceived;
 
             channel.BasicConsume(eventName, true, consumer);
-
         }
 
         private async Task ConsumerReceived(object sender, BasicDeliverEventArgs e)

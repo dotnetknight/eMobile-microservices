@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\eMobile.Common\eMobile.Common.csproj" />
+    <ProjectReference Include="..\eMobile.Orders.Service\eMobile.Orders.Service.csproj" />
     <ProjectReference Include="..\eMobile.Phones.Service\eMobile.Phones.Service.csproj" />
   </ItemGroup>
 

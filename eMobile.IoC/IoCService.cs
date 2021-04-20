@@ -6,7 +6,6 @@ using eMobile.Phones.Service.Handlers.CommandHandlers;
 using Microsoft.Extensions.DependencyInjection;
 using Autofac.Extras.DynamicProxy;
 using eMobile.Phones.Service.Helpers;
-using eMobile.Phones.Repository;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using eMobile.Phones.Service.Handlers.QueryHandlers;
 
@@ -27,7 +26,8 @@ namespace eMobile.IoC
             services.AddSingleton(typeof(HATEOASLinksService), typeof(HATEOASLinksService));
             services.AddSingleton(typeof(MediaTypeCheckService), typeof(MediaTypeCheckService));
 
-            services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient(typeof(Phones.Repository.IRepository<>), typeof(Phones.Repository.Repository<>));
+            services.AddTransient(typeof(Orders.Repository.IRepository<>), typeof(Orders.Repository.Repository<>));
 
             services.AddTransient<ICommandBusAsync, CommandBusAsync>();
             services.AddTransient<IQueryBusAsync, QueryBusAsync>();
@@ -43,6 +43,7 @@ namespace eMobile.IoC
             builder.RegisterAssemblyTypes(typeof(PhoneQueryHandler).Assembly)
                 .AsClosedTypesOf(typeof(IQueryHandlerAsync<,>))
                 .EnableClassInterceptors();
+
         }
     }
 }

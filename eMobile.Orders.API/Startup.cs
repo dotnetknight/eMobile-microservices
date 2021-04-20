@@ -17,6 +17,10 @@ using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
 using FluentValidation.AspNetCore;
+using Common.Bus.RabbitMQ;
+using eMobile.Orders.Service.Handlers.EventHandlers;
+using eMobile.Orders.Models.Events;
+using Common.Events;
 
 namespace eMobile.Orders.API
 {
@@ -67,8 +71,13 @@ namespace eMobile.Orders.API
 
             services.AddDbContext<OrdersContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddTransient<PhoneCreatedEventHandler>();
+
+            services.AddTransient<IEventHandler<PhoneCreatedEvent>, PhoneCreatedEventHandler>();
+
             var container = new ContainerBuilder();
             IoCService.RegisterServices(container, services);
+
             container.Populate(services);
 
             return new AutofacServiceProvider(container.Build());
@@ -94,6 +103,14 @@ namespace eMobile.Orders.API
             {
                 endpoints.MapControllers();
             });
+
+            ConfigureEventBus(app);
+        }
+
+        private static void ConfigureEventBus(IApplicationBuilder app)
+        {
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            eventBus.Subscribe<PhoneCreatedEvent, PhoneCreatedEventHandler>();
         }
     }
 }

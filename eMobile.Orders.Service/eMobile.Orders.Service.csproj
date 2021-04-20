@@ -4,4 +4,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eMobile.Common\eMobile.Common.csproj" />
+    <ProjectReference Include="..\eMobile.Orders.Models\eMobile.Orders.Models.csproj" />
+    <ProjectReference Include="..\eMobile.Orders.Repository\eMobile.Orders.Repository.csproj" />
+  </ItemGroup>
+
 </Project>
